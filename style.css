@@ -13,6 +13,7 @@ body {
 .licence-left {
     text-align: left;
     margin-left: 1.5em;
+    font-size: 0.9em;
 }
 
 .portfolio-buttons {
@@ -30,12 +31,16 @@ body {
     display: block;
 }
 
+.portfolio-buttons a:last-child {
+    margin-bottom: 2.8em; /* doubled from 1.4em */
+}
+
 .portfolio-buttons button {
     width: 100%;
     background: #33CC66;
     color: #000;
     border: none;
-    padding: 0.75em 2em;
+    padding: 1.5em 2em; /* doubled vertical padding */
     font-size: 1em;
     font-weight: bold;
     border-radius: 4px;
@@ -43,6 +48,7 @@ body {
     transition: background 0.2s, color 0.2s;
     box-sizing: border-box;
     max-width: 100%;
+    height: 4.5em; /* ensures equal and approx. double height */
 }
 
 .portfolio-buttons .intro-button {
@@ -65,4 +71,18 @@ body {
     color: inherit;
     cursor: pointer;
     display: inline-block;
+}
+
+.licence-section {
+    margin-top: 2.5em;
+    padding-top: 1.5em;
+    border-top: 1px solid #ccc;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.kontakt-form-wrapper {
+    margin-left: 1.5em;
+    max-width: 400px;
 }

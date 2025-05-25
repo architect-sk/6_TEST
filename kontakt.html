@@ -9,6 +9,22 @@
     <main>
         <a href="index.html" class="home-link header-left"><h1>ARCHDATA</h1></a>
         <!-- Content for Kontakt -->
+        <div class="kontakt-form-wrapper">
+            <h2>Kontaktujte nás</h2>
+            <form action="mailto:standardy@archdata.sk" method="post" enctype="text/plain">
+                <label for="meno">Meno:</label><br>
+                <input type="text" id="meno" name="Meno" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="Email" required><br><br>
+
+                <label for="sprava">Správa:</label><br>
+                <textarea id="sprava" name="Správa" rows="5" required></textarea><br><br>
+
+                <button type="submit">Odoslať</button>
+            </form>
+            <p>Prípadne nás kontaktujte priamo na <a href="mailto:standardy@archdata.sk">standardy@archdata.sk</a></p>
+        </div>
     </main>
 </body>
 </html>
