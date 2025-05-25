@@ -4,16 +4,36 @@ body {
     padding: 0;
 }
 
+.header-left {
+    display: block;
+    text-align: left;
+    margin-left: 1.5em;
+}
+
+.licence-left {
+    text-align: left;
+    margin-left: 1.5em;
+}
+
 .portfolio-buttons {
     display: flex;
-    justify-content: center;
-    gap: 2em;
-    margin: 2em 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7em;
+    margin: 2em auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.portfolio-buttons a {
+    width: 100%;
+    display: block;
 }
 
 .portfolio-buttons button {
-    background: #222;
-    color: #fff;
+    width: 100%;
+    background: #33CC66;
+    color: #000;
     border: none;
     padding: 0.75em 2em;
     font-size: 1em;
@@ -21,9 +41,28 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.portfolio-buttons .intro-button {
+    background: #33CC66;
+    color: #000;
+}
+
+.portfolio-buttons .intro-button:hover {
+    background: #ff9800;
+    color: #000;
 }
 
 .portfolio-buttons button:hover {
     background: #ff9800;
     color: #222;
+}
+
+.home-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
 }
