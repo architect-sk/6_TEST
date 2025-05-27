@@ -45,7 +45,7 @@ body {
 
 .portfolio-buttons button {
     width: 100%;
-    background: #33CC66;
+    background: #33aa66;
     color: #000;
     border: none;
     padding: 1.72em 2.30em; /* 10% less than 1.91em 2.55em */
@@ -60,18 +60,18 @@ body {
 }
 
 .portfolio-buttons .intro-button {
-    background: #33CC66;
+    background: #33aa66;
     color: #000;
 }
 
 .portfolio-buttons .intro-button:hover {
-    background: #ff9800;
-    color: #000;
+    background: #000000;
+    color: #ffffff;
 }
 
 .portfolio-buttons button:hover {
-    background: #ff9800;
-    color: #222;
+    background: #000000;
+    color: #ffffff;
 }
 
 .home-link {
