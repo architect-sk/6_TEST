@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>archdata</title>
+    <title>Štandardy služieb architektov</title>
     <link rel="stylesheet" href="style.css">
     <script>
+        // Set this to true to require password, false to suspend password prompt
+        var requirePassword = false;
         document.addEventListener("DOMContentLoaded", function() {
-            // Only prompt for password if not already granted in this session
-            if (!sessionStorage.getItem("archdata_access")) {
-                var heslo = prompt("Zadajte heslo pre vstup na stránku:");
-                if (heslo !== "alfa") {
-                    document.body.innerHTML = "<div style='text-align:center;margin-top:3em;font-size:1.5em;'>Nesprávne heslo. Prístup zamietnutý.</div>";
-                } else {
-                    sessionStorage.setItem("archdata_access", "1");
+            if (requirePassword) {
+                // Only prompt for password if not already granted in this session
+                if (!sessionStorage.getItem("archdata_access")) {
+                    var heslo = prompt("Zadajte heslo pre vstup na stránku:");
+                    if (heslo !== "alfa") {
+                        document.body.innerHTML = "<div style='text-align:center;margin-top:3em;font-size:1.5em;'>Nesprávne heslo. Prístup zamietnutý.</div>";
+                    } else {
+                        sessionStorage.setItem("archdata_access", "1");
+                    }
                 }
             }
         });
