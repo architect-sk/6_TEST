@@ -11,7 +11,7 @@
             if (requirePassword) {
                 // Only prompt for password if not already granted in this session
                 if (!sessionStorage.getItem("archdata_access")) {
-                    var heslo = prompt("Zadajte heslo pre vstup na stránku:");
+                    var heslo = prompt("Zadaj heslo pre vstup na stránku:\n\nTáto webová stránka využíva funkcie služby webovej analýzy Google Analytics.");
                     if (heslo !== "test") {
                         document.body.innerHTML = "<div style='text-align:center;margin-top:3em;font-size:1.5em;'>Nesprávne heslo. Prístup zamietnutý.</div>";
                     } else {
