@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Štandardy služieb architektov</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .home-link {
+            text-decoration: none;
+            display: block;
+            margin-bottom: 2rem;
+        }
+        .home-link img {
+            height: 2.31rem;
+            width: auto;
+        }
+    </style>
+    <script>
+        // Set this to true to require password, false to suspend password prompt
+        var requirePassword = true;
+        document.addEventListener("DOMContentLoaded", function() {
+            if (requirePassword) {
+                // Only prompt for password if not already granted in this session
+                if (!sessionStorage.getItem("archdata_access")) {
+                    // Custom modal for password input with asterisks
+                    var modal = document.createElement('div');
+                    modal.style.position = 'fixed';
+                    modal.style.top = 0;
+                    modal.style.left = 0;
+                    modal.style.width = '100vw';
+                    modal.style.height = '100vh';
+                    modal.style.background = 'rgba(0,0,0,0.3)';
+                    modal.style.display = 'flex';
+                    modal.style.alignItems = 'center';
+                    modal.style.justifyContent = 'center';
+                    modal.style.zIndex = 9999;
+
+                    var box = document.createElement('div');
+                    box.style.background = '#fff';
+                    box.style.padding = '2em';
+                    box.style.borderRadius = '8px';
+                    box.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
+                    box.style.textAlign = 'center';
+
+                    var label = document.createElement('label');
+                    label.textContent = "Zadajte heslo pre vstup na stránku:";
+                    label.style.display = 'block';
+                    label.style.marginBottom = '1em';
+
+                    var note = document.createElement('div');
+                    note.textContent = "Táto webová stránka využíva funkcie služby Google Analytics.";
+                    note.style.fontSize = '0.95em';
+                    note.style.color = '#666';
+                    note.style.marginBottom = '1.5em';
+
+                    var input = document.createElement('input');
+                    input.type = 'password';
+                    input.autocomplete = 'off';
+                    input.style.fontSize = '1.2em';
+                    input.style.padding = '0.5em';
+                    input.style.width = '100%';
+                    input.style.marginBottom = '1em';
+
+                    var button = document.createElement('button');
+                    button.textContent = 'Vstúpiť';
+                    button.style.fontSize = '1em';
+                    button.style.padding = '0.5em 2em';
+
+                    var error = document.createElement('div');
+                    error.style.color = 'red';
+                    error.style.marginTop = '1em';
+
+                    button.onclick = function() {
+                        if (input.value === "alfa") {
+                            sessionStorage.setItem("archdata_access", "1");
+                            document.body.removeChild(modal);
+                        } else {
+                            error.textContent = "Nesprávne heslo. Prístup zamietnutý.";
+                        }
+                    };
+
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            button.click();
+                        }
+                    });
+
+                    // type="password" already masks input as asterisks
+
+                    box.appendChild(label);
+                    box.appendChild(note);
+                    box.appendChild(input);
+                    box.appendChild(button);
+                    box.appendChild(error);
+                    modal.appendChild(box);
+                    document.body.appendChild(modal);
+                    input.focus();
+                }
+            }
+        });
+    </script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VE4DFHFELV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VE4DFHFELV');
+</script>
+<body>
+    <a href="https://archdata.sk/standardy-test" class="home-link" style="display:block; margin:2rem 0 0 2rem;">
+        <img src="archdata_logo.jpg" alt="archdata" />
+    </a>
+    <main style="max-width: 800px; margin: 2rem auto 4rem auto; padding: 2rem;">
+        <div class="portfolio-buttons">
+            <a href="uvod.html"><button class="intro-button">Úvod</button></a>
+            <a href="standardy-sluzieb-architektov.html"><button>Štandardy služieb architektov</button></a>
+            <a href="sluzby-architekta.html"><button>Katalóg služieb architekta</button></a>
+            <a href="sluzby-generalneho-projektanta.html"><button>Katalóg služieb generálneho projektanta</button></a>
+            <a href="zmluva-vzor-a.html"><button>Zmluva o poskytovaní služieb architekta – vzor A</button></a>
+            <a href="kalkulator.html"><button>Kalkulátor hodnoty zákazky architekta</button></a>
+            <a href="kontakt.html"><button>Kontakt</button></a>
+        </div>
+    </main>
+    <footer>
+    <div class="licence-section">
+        <p class="licence-left"><a href="https://archdata.sk/standardy-test">Štandardy služieb architektov</a> © 2025 by Kornel Kobák is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"></p>
+    </div>
+    </footer>
+</body>
+</html>

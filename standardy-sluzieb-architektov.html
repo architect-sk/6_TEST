@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Štandardy služieb architektov</title>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: #fff;
+      color: #111;
+      padding: 4rem 2rem 4rem;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 0;
+      display: flex;
+      align-items: left;
+      justify-content: space-between;
+      position: relative;
+    }
+    .home-link {
+      text-decoration: none;
+      position: absolute;
+      margin-left: -30rem;
+      margin-top: -2.5rem;
+    }
+    .home-link img {
+      height: 2.31rem;
+      width: auto;
+    }
+    h1, h2, h3 { color: #111; }
+    .content {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background: #fff;
+    }
+    h3 { margin-top: 1.5rem; }
+    ol.subchapters {
+      padding-left: 2.5em;
+      list-style: none;
+      counter-reset: subchapter;
+    }
+    ol.subchapters[data-chapter="1"] {
+      counter-reset: subchapter1;
+    }
+    ol.subchapters[data-chapter="1"] > li {
+      counter-increment: subchapter1;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.5em;
+    }
+    ol.subchapters[data-chapter="1"] > li::before {
+      content: "1." counter(subchapter1) " ";
+      font-weight: bold;
+      color: #111;
+      position: absolute;
+      left: 0;
+      width: 2.5em;
+      text-align: right;
+    }
+    ol.subchapters[data-chapter="2"] {
+      counter-reset: subchapter2;
+    }
+    ol.subchapters[data-chapter="2"] > li {
+      counter-increment: subchapter2;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.5em;
+    }
+    ol.subchapters[data-chapter="2"] > li::before {
+      content: "2." counter(subchapter2) " ";
+      font-weight: bold;
+      color: #111;
+      position: absolute;
+      left: 0;
+      width: 2.5em;
+      text-align: right;
+    }
+    ol.subchapters[data-chapter="3"] {
+      counter-reset: subchapter3;
+    }
+    ol.subchapters[data-chapter="3"] > li {
+      counter-increment: subchapter3;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.5em;
+    }
+    ol.subchapters[data-chapter="3"] > li::before {
+      content: "3." counter(subchapter3) " ";
+      font-weight: bold;
+      color: #111;
+      position: absolute;
+      left: 0;
+      width: 2.5em;
+      text-align: right;
+    }
+    ol.subchapters[data-chapter="4"] {
+      counter-reset: subchapter4;
+    }
+    ol.subchapters[data-chapter="4"] > li {
+      counter-increment: subchapter4;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.5em;
+    }
+    ol.subchapters[data-chapter="4"] > li::before {
+      content: "4." counter(subchapter4) " ";
+      font-weight: bold;
+      color: #111;
+      position: absolute;
+      left: 0;
+      width: 2.5em;
+      text-align: right;
+    }
+    details {
+      margin-bottom: 2rem;
+      border: 1px solid #ccc;
+      border-left: 5px solid #33aa66;
+      background: #fff;
+      padding: 1rem;
+    }
+    summary {
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #111;
+    }
+    .quote {
+      font-style: italic;
+      margin: 1rem 0;
+      padding-left: 1rem;
+      border-left: 4px solid #33aa66;
+      color: #444;
+    }
+    [contenteditable] {
+      outline: none;
+      white-space: pre-wrap;
+    }
+    .print-btn {
+      display: block;
+      margin: 4rem auto 2rem;
+      background: #33aa66;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    nav {
+      background: #fff;
+      padding: 1rem;
+      border-left: 5px solid #33aa66;
+      margin-bottom: 2rem;
+    }
+    nav a {
+      display: block;
+      color: #111;
+      text-decoration: none;
+      margin: 0.2rem 0;
+    }
+    .top-link {
+      text-align: right;
+      margin-top: 2rem;
+    }
+    .top-link a {
+      text-decoration: none;
+      color: #111;
+      font-size: 0.9rem;
+    }
+    footer {
+      /* background: #33aa66; */ /* Remove green background */
+      background: none;
+      color: #222;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+    @media print {
+      .print-btn, .top-link, footer { display: none; }
+      body { background: #fff; }
+      .content { box-shadow: none; }
+      details { 
+        page-break-before: always;
+        page-break-after: always;
+      }
+      nav { 
+        display: block;
+        border: none;
+        padding: 0;
+        page-break-after: always;
+      }
+      nav strong { 
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      nav a {
+        color: #000;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="https://archdata.sk/standardy-test" class="home-link" style="display:block; margin:2rem 0 0 2rem;">
+    <img src="archdata_logo.jpg" alt="archdata" />
+  </a>
+  <div class="content">
+    <nav>
+      <strong>Obsah</strong>
+      <a href="#uvod">1. Úvod</a>
+      <div style="padding-left:1.5em">
+        <a href="#architekt-klient">1.1 Architekt a klient</a>
+        <a href="#sucinost-klienta">1.2 Súčinnosť klienta</a>
+        <a href="#klucovy-personal">1.3 Kľúčový personál a projektový tím architekta</a>
+        <a href="#autorske-pravo">1.4 Autorské právo a licencie</a>
+        <a href="#poistenie">1.5 Poistenie zodpovednosti za škodu</a>
+        <a href="#digitalny-manazment">1.6 Manažment digitálnych dát</a>
+      </div>
+      <br>
+      <a href="#standardy-architekta">2. Štandardy služieb architekta</a>
+      <div style="padding-left:1.5em">
+        <a href="#sluzby-architekta">2.2 Služby architekta</a>
+        <a href="#fazy-architekta">2.3 Fázy služieb architekta</a>
+        <a href="#zakladne-architekta">2.4 Základné služby architekta</a>
+        <a href="#dalsie-architekta">2.5 Ďalšie služby architekta</a>
+        <a href="#dodatocne-architekta">2.6 Dodatočné služby architekta</a>
+      </div>
+      <br>
+      <a href="#standardy-gp">3. Štandardy služieb generálneho projektanta</a>
+      <div style="padding-left:1.5em">
+        <a href="#sluzby-gp">3.1 Služby generálneho projektanta</a>
+        <a href="#fazy-gp">3.2 Fázy služieb generálneho projektanta</a>
+        <a href="#zakladne-gp">3.3 Základné služby generálneho projektanta</a>
+        <a href="#dalsie-gp">3.4 Ďalšie služby generálneho projektanta</a>
+        <a href="#dodatocne-gp">3.5 Dodatočné služby generálneho projektanta</a>
+      </div>
+      <br>
+      <a href="#odmena">4. Postupy stanovenia hodnoty zákazky architekta</a>
+      <div style="padding-left:1.5em">
+        <a href="#odmena-sluzby">4.1 Odmena za služby architekta</a>
+        <a href="#metody-honorar">4.2 Metódy stanovenia honoráru architekta</a>
+        <a href="#vypocet-zakazky">4.3 Výpočet hodnoty zákazky architekta</a>
+        <a href="#kalkulator-zakazky">4.4 Kalkulátor hodnoty zákazky architekta</a>
+      </div>
+    </nav>
+
+    <details id="uvod">
+      <summary>1. Úvod</summary>
+      <div class="quote">Tvoriť, to je najprv všetko spochybniť – Eileen Gray, architektka</div>
+      <br><br><br>
+      <div style="padding-left:1.5em">
+        Slovenská komora architektov vydáva tento metodický manuál pre spoluprácu medzi klientom a architektom v architektonickej praxi a vo verejnom obstarávaní služieb poskytovaných architektmi11) 18). Manuál je súčasťou reformy poskytovania služieb architektov. Definuje rozsah štandardných služieb a postupov vo vykonávaní povolania architekta, s cieľom prirodzeným a medzinárodne zaužívaným spôsobom pomenovať postupy práce architekta, stanoviť ich individuálnu hodnotu a priblížiť tak architektonickú profesiu na Slovensku prevládajúcej európskej dobrej praxi.
+        <br><br>
+        Manuál je výsledkom viacročnej práce a stavovskej diskusie a postihuje všetky oblasti od fázovania, cez zmluvnú prax, stanovenie hodnoty zákazky na overenie ponukového honoráru, až po autorskoprávne aspekty práce architekta. Prihlásením sa k európskym štandardom vykonávania povolania sa Slovenská komora architektov touto iniciatívou usiluje o systémové zlepšenie podmienok práce pre svojich členov.
+        <br><br>
+        Tvorba architektonických diel a kvalitná príprava architektonických a krajinno-architektonických projektov predpokladá dobrú spoluprácu a vzájomnú koordináciu klienta s architektom, založenú na pochopení charakteru práce, úloh a zodpovedností architekta. Profesijnou povinnosťou architekta je odborné poskytovanie služieb a dôsledné riešenie dohodnutých úloh. Manuál poskytuje prehľad úloh a postupov architektov pri príprave, zhotovovaní, zmenách a užívaní stavieb. Definuje všeobecné štandardy služieb, ktoré architekti poskytujú, stanovuje rozsah základných služieb architektov a ponuku ďalších služieb nad ich rámec, ktoré sú dohodnuté individuálne. V manuáli sú uvedené aj metodické postupy využiteľné pri stanovení a dohodnutí odmeny za poskytované služby. Ich cieľom je prispieť k vytváraniu vhodných podmienok na zmluvnú dohodu a dlhodobú úspešnú spoluprácu medzi klientom a architektom.
+        <br><br>
+        Podrobné a praktické informácie pre architektov a ich klientov sú obsahom príloh manuálu.  Slovník pojmov slúži na zlepšenie porozumenia založenom na jednotnom výklade pojmov pri dlhodobej spolupráci a zmluvnej dohode klienta s architektom.
+        <br><br>
+        Štandardy služieb architektov sú dostupné aj cez webovú aplikáciu.
+      </div>
+      <div contenteditable="true">
+        <ol class="subchapters" data-chapter="1" style="padding-left:0;">
+          <li id="architekt-klient"><strong>Architekt a klient</strong><br>Architekt je kvalifikovaný profesionál pre navrhovanie stavieb, plánovanie sídiel a krajiny. Je zmluvným partnerom klienta, objednávateľa služieb architekta. 
+
+Výsledky práce architekta vo forme návrhov stavieb, verejných priestorov, urbanistických súborov, pamiatkovej obnovy a krajinných stavieb (ďalej len stavba) majú významný vplyv na zdravie, životy a majetok občanov a na prírodné a kultúrne prostredie. Pre zabezpečenie verejnej kontroly a v záujme celkovej ochrany spoločnosti je preto aj na Slovensku profesia architekta regulovaná. Poskytovanie ucelených služieb je vyhradené architektom a architektkám s autorizáciou – autorizovaným architektom a autorizovaným krajinným architektom zapísaným v zozname autorizovaných architektov a v zozname autorizovaných krajinných architektov alebo v registri hosťujúcich architektov a hosťujúcich krajinných architektov, vedenom Slovenskou komorou architektov*. 
+
+Architekt je subjekt s odbornou kvalifikáciou pre navrhovanie stavieb, plánovanie sídiel a krajiny, poskytujúci služby prevažne intelektuálnej povahy podľa zákona Slovenskej národnej rady č. 138/1992 Zb. o autorizovaných architektoch a autorizovaných stavebných inžinieroch v znení neskorších predpisov 6), vykonávajúci regulované povolanie architekt, vrátane oprávnenia na poskytovanie služieb krajinného architekta a územného plánovača, vo vlastnom mene a na vlastnú zodpovednosť autorizovanej osoby, alebo v mene a na zodpovednosť právnickej osoby, poskytujúcej tieto služby prostredníctvom autorizovanej osoby. 
+
+Krajinný architekt je subjekt s odbornou kvalifikáciou pre navrhovanie krajinno-architektonických úprav, plánovanie krajinných prvkov sídiel a krajiny, poskytujúci služby prevažne intelektuálnej povahy podľa zákona6), vykonávajúci regulované povolanie krajinný architekt vo vlastnom mene a na vlastnú zodpovednosť autorizovanej osoby, alebo v mene a na zodpovednosť právnickej osoby, poskytujúcej tieto služby prostredníctvom autorizovanej osoby.
+
+Získanie autorizácie na vykonávanie regulovaného povolania architekt a krajinný architekt je podmienené absolvovaním vysokoškolského architektonického vzdelania a odbornej praxe pod dohľadom architekta, resp. krajinného architekta a vykonaním autorizačnej skúšky, resp. uznaním odbornej kvalifikácie získanej v domovskom členskom štáte podľa zákona6). Pri poskytovaní služieb architekt a krajinný architekt vystupuje priamo alebo je reprezentovaný splnomocnenými zástupcami.
+
+Architekt a krajinný architekt (ďalej len architekt) preberá na seba záväzky a práva v rozsahu zákonného oprávnenia architekta podľa zákona6), príslušných právnych predpisov a tiež v medziach určených prijatými profesijnými štandardmi - Štandardmi služieb architektov (ďalej len Štandardy) a to najmä:
+•	poskytuje klientovi služby architekta a služby krajinného architekta v súlade so zadaním a ďalšími požiadavkami, v obsahu a rozsahu podľa Štandardov a individuálnej dohody s klientom,
+•	informuje klienta o postupe poskytovaných služieb tak, aby klient v dostatočnej miere porozumel návrhom architekta, priebežne ich pripomienkoval a odsúhlasoval,
+•	informuje klienta o súvislostiach zmien stavby vyvolaných klientom alebo tretími stranami a snaží sa o ich implementáciu, vrátane zmierňovania ich dôsledkov,
+•	informuje klienta o potrebe dodatočných služieb a projektových podkladov a potrebe ustanovenia konzultantov na strane klienta,
+•	vypracúva podklady pre všetky potrebné časti projektovej dokumentácie projektantov s oprávnením a iných špecialistov, konzultantov a zmluvných partnerov, 
+•	na základe poverenia od klienta zastupuje klienta pri povoľovaní a uskutočňovaní výstavby a poskytuje mu odborné poradenstvo,
+•	bez písomného súhlasu klienta nevykoná zmeny a neodsúhlasí alternatívne riešenia stavby nad rámec zadania klienta,
+•	dbá o estetické, funkčné, technické, spoločenské, kultúrne, pamiatkovej, ekonomické a environmentálne aspekty tvorby udržateľného životného prostredia v oblasti architektúry, urbanizmu, územného plánovania a krajinnej architektúry a o celostný pohľad na projekt.
+
+Architekt navrhuje začlenenie stavieb do obrazu sídla a krajiny s cieľom minimalizovať ich negatívne dopady na prostredie. Presadzuje tiež starostlivosť o krajinu, smerujúcu k zachovaniu jej významných a charakteristických čŕt a zároveň k zvýšeniu prirodzeného zadržiavania vody v území, s využitím a integráciou nástrojov ochrany, obnovy a tvorby krajiny a adaptácie na zmenu klímy, vo svojej práci. 
+
+Architekt je oprávnený tiež na poskytovanie služieb generálneho projektanta podľa Štandardov služieb generálneho projektanta (ďalej len Štandardy GP) podľa príslušných všeobecne záväzných právnych predpisov8) 13).
+
+Architekti a nimi poverené osoby majú tiež uzatvorené poistenie zodpovednosti za škodu, ktorú spôsobili v súvislosti s vykonávaním svojej činnosti. Z poistenia má poistený architekt právo, aby poisťovňa za neho nahradila škodu vzniknutú klientovi. Poistenie je uzavreté v primeranom rozsahu poistného krytia škôd, nie je uzavreté za nevýhodných podmienok a pokrýva všetku možnú zodpovednosť za škodu pri výkone odbornej činnosti, ktorá môže vzniknúť v súvislosti s poskytovaním služieb a zodpovednosťou architekta. Právna zodpovednosť za spôsobenú škodu je zachovaná.
+
+Pokiaľ architekt poskytuje služby generálneho projektanta a na poskytnutie služieb a vypracovanie a dodanie projektovej dokumentácie je potrebných viacero projektantov (autorizovaných architektov, autorizovaných krajinných architektov, autorizovaných stavebných inžinierov, odborne spôsobilých osôb na vydávanie certifikátov o energetickej hospodárnosti budov), sú títo projektanti povinne poistenými subjektami a majú na vlastné náklady uzatvorené poistenie zodpovednosti za škodu, ktorú spôsobil v súvislosti s vykonávaním svojej činnosti, za poistných podmienok a s poistnou sumou stanovenou primerane k rozsahu zodpovednosti. Zodpovednosť projektanta a generálneho projektanta za úplnosť a použiteľnosť projektovej dokumentácie podľa zákona6) nie je poistením obmedzená. 
+
+Povinnosti a záväzky architektov, udržiavanie disciplíny a stavovskej cti pri odbornom vykonávaní regulovaného povolania v súlade s etikou povolania a spôsobom ustanoveným zákonmi, sú bližšie stanovené v zákone6) a vo vnútorných predpisoch Slovenskej komory architektov - Štatúte1), Disciplinárnom poriadku2) a Etickom poriadku3). Podmienkou poskytovania služieb architekta v regulovanom povolaní je zloženie sľubu v znení - Sľubujem na svoje svedomie a na občiansku a stavovskú česť, že svoje povolanie budem vykonávať v súlade s ústavou, zákonmi a inými právnymi predpismi a podľa svojho najlepšieho vedomia a svedomia.
+
+Okrem poskytovania služieb architekta je architekt spôsobilý na plnenie rozmanitých úloh a vykonávanie kvalifikovaných a expertných činností v dodávateľskom reťazci stavebníctva a súvisiacich oblastí a tiež na vykonávanie odbornej a riadiacej činnosti zamestnanca v štátnej správe a komunálnej samospráve a štátneho zamestnanca pri výkone štátnej služby.
+
+Klient architekta je iniciátorom projektu a objednávateľom služieb poskytovaných architektom (ďalej len klient). Klientmi sú súkromné osoby, firmy, inštitúcie a verejní klienti – organizácie hospodáriace s verejnými prostriedkami, obce, vyššie územné celky, verejnoprávne inštitúcie a štátne orgány. V procese spolupráce s architektom klient vystupuje priamo, alebo je reprezentovaný splnomocnenými zástupcami. V procesoch prípravy, zhotovovania, zmeny a užívania stavby je klient stavebníkom podľa zákona8).
+
+Klient oslovuje architekta na spoluprácu v oblasti architektúry, urbanizmu, pamiatkovej obnovy, krajinnej architektúry alebo územného plánovania priamym zadaním na základe referencií alebo skúseností z predchádzajúcej spolupráce. Môže tiež zadať spracovanie konceptov a návrhov viacerým architektom alebo variantných riešení jednému architektonickému tímu.
+
+Typickým postupom výberu architekta klientom je architektonická súťaž na hľadanie najlepšieho architektonického, urbanistického, krajinárskeho, interiérového alebo súvisiaceho umeleckého a konštrukčného riešenia stavby (súťaž návrhov v procese verejného obstarávania11) 18)). Na ich podporu vydala Slovenská komora architektov Súťažný poriadok4) a Manuál súťaží návrhov5). Alternatívnou metódou výberu architekta v procese verejného obstarávania je súťažný dialóg podľa zákona11). Súťaž a súťažný dialóg umožňujú výber architekta formou voľby najlepšieho riešenia z viacerých návrhov, prostredníctvom odbornej poroty alebo komisie, korektne a transparentne. 
+
+Pre úspešnú spoluprácu medzi klientom a architektom je dôležité budovať atmosféru vzájomnej dôvery a prejavov ústretovosti, ktoré garantujú partnerskú spoluprácu podľa zásad dobrej praxe a naplnenie zámerov prípravy, zhotovovania, zmeny a užívania stavby. Je dôležité, aby klient rozumel prínosom a úskaliam jednotlivých riešení navrhovaných architektom, priebežne ich pripomienkoval a odsúhlasoval. Štandardnou praxou je opakovaná spolupráca klienta s architektom. 
+
+Dohodnutý rozsah služieb a podmienky spolupráce pre poskytované služby sa obvykle zakotvia v zmluve o poskytovaní služieb architekta. Vzhľadom na dlhotrvajúcu spoluprácu klienta a architekta od iniciovania až po užívanie stavby, je zmluva koncipovaná tak, aby umožnila zmluvným stranám obojstranne, flexibilne, korektne a v duchu partnerstva akceptovať zmeny, ktoré sa pri dlhodobom charaktere spolupráce obvykle vyskytujú.
+</li>
+          <li id="sucinost-klienta"><strong>Súčinnosť klienta</strong><br>Klient je povinný poskytovať architektovi potrebnú súčinnosť, včasné informácie a podklady, ktoré sú nevyhnutné na riadne plnenie zmluvy o poskytovaní služieb architekta.</li>
+          <li id="klucovy-personal"><strong>Kľúčový personál a projektový tím architekta</strong><br>Kľúčový personál architekta tvoria osoby s odbornou kvalifikáciou, ktoré sa podieľajú na poskytovaní služieb architekta v rámci projektového tímu.</li>
+          <li id="autorske-pravo"><strong>Autorské právo a licencie</strong><br>Architekt je nositeľom autorských práv k svojim dielam a poskytuje klientovi licenciu na ich použitie v rozsahu dohodnutom v zmluve.</li>
+          <li id="poistenie"><strong>Poistenie zodpovednosti za škodu</strong><br>Architekt je povinný mať uzatvorené poistenie zodpovednosti za škodu spôsobenú pri výkone svojej činnosti v súlade s platnými právnymi predpismi.</li>
+          <li id="digitalny-manazment"><strong>Manažment digitálnych dát</strong><br>Architekt zabezpečuje správu a ochranu digitálnych dát a dokumentácie v súlade s dohodnutými štandardmi a požiadavkami klienta.</li>
+        </ol>
+      </div>
+      <div class="top-link"><a href="#top">↑ Naspäť na začiatok</a></div>
+    </details>
+
+    <details id="standardy-architekta">
+      <summary>2. Štandardy služieb architekta</summary>
+      <div class="quote">Najväčším nebezpečenstvom pre architektúru je riešiť problémy oddelene. – Alvar Aalto</div>
+      <div contenteditable="true">
+        <ol class="subchapters" data-chapter="2" style="padding-left:0;">
+          <li id="sluzby-architekta"><strong>Služby architekta</strong><br>Architekt poskytuje služby v oblasti navrhovania stavieb, urbanizmu, krajinnej architektúry a územného plánovania podľa požiadaviek klienta.</li>
+          <li id="fazy-architekta"><strong>Fázy služieb architekta</strong><br>Služby architekta sú rozdelené do jednotlivých fáz podľa postupu prípravy a realizácie stavby.</li>
+          <li id="zakladne-architekta"><strong>Základné služby architekta</strong><br>Základné služby architekta zahŕňajú najmä vypracovanie projektovej dokumentácie, autorský dozor a odborné poradenstvo.</li>
+          <li id="dalsie-architekta"><strong>Ďalšie služby architekta</strong><br>Ďalšie služby architekta sú poskytované nad rámec základných služieb na základe individuálnej dohody s klientom.</li>
+          <li id="dodatocne-architekta"><strong>Dodatočné služby architekta</strong><br>Dodatočné služby architekta sú služby, ktoré vzniknú v priebehu projektu na základe nových požiadaviek alebo zmien zadania.</li>
+        </ol>
+      </div>
+      <div class="top-link"><a href="#top">↑ Naspäť na začiatok</a></div>
+    </details>
+
+    <details id="standardy-gp">
+      <summary>3. Štandardy služieb generálneho projektanta</summary>
+      <div class="quote">Technológia je odpoveďou, ale čo bola otázka? – Cedric Price</div>
+      <div contenteditable="true">
+        <ol class="subchapters" data-chapter="3" style="padding-left:0;">
+          <li id="sluzby-gp"><strong>Služby generálneho projektanta</strong><br>Generálny projektant zabezpečuje koordináciu všetkých projektových činností a profesií potrebných na realizáciu stavby.</li>
+          <li id="fazy-gp"><strong>Fázy služieb generálneho projektanta</strong><br>Služby generálneho projektanta sú rozdelené do jednotlivých fáz podľa postupu prípravy a realizácie stavby.</li>
+          <li id="zakladne-gp"><strong>Základné služby generálneho projektanta</strong><br>Základné služby generálneho projektanta zahŕňajú koordináciu projektovej dokumentácie a zabezpečenie súladu s požiadavkami klienta a legislatívy.</li>
+          <li id="dalsie-gp"><strong>Ďalšie služby generálneho projektanta</strong><br>Ďalšie služby generálneho projektanta sú poskytované nad rámec základných služieb na základe individuálnej dohody s klientom.</li>
+          <li id="dodatocne-gp"><strong>Dodatočné služby generálneho projektanta</strong><br>Dodatočné služby generálneho projektanta sú služby, ktoré vzniknú v priebehu projektu na základe nových požiadaviek alebo zmien zadania.</li>
+        </ol>
+      </div>
+      <div class="top-link"><a href="#top">↑ Naspäť na začiatok</a></div>
+    </details>
+
+    <details id="odmena">
+      <summary>4. Postupy stanovenia hodnoty zákazky architekta</summary>
+      <div class="quote">Cena nie je cieľom, ale výsledkom dohody. – Neznámy autor</div>
+      <div contenteditable="true">
+        <ol class="subchapters" data-chapter="4" style="padding-left:0;">
+          <li id="odmena-sluzby"><strong>Odmena za služby architekta</strong><br>Odmena za služby architekta je stanovená na základe rozsahu a náročnosti poskytovaných služieb podľa dohody s klientom.</li>
+          <li id="metody-honorar"><strong>Metódy stanovenia honoráru architekta</strong><br>Honorár architekta môže byť stanovený pevnou sumou, percentuálne z hodnoty zákazky alebo hodinovou sadzbou.</li>
+          <li id="vypocet-zakazky"><strong>Výpočet hodnoty zákazky architekta</strong><br>Hodnota zákazky architekta sa vypočíta podľa dohodnutých kritérií a metodík uvedených v príslušných predpisoch.</li>
+          <li id="kalkulator-zakazky"><strong>Kalkulátor hodnoty zákazky architekta</strong><br>Na výpočet hodnoty zákazky architekta je možné využiť online kalkulátor dostupný na stránke Slovenskej komory architektov.</li>
+        </ol>
+      </div>
+      <div class="top-link"><a href="#top">↑ Naspäť na začiatok</a></div>
+    </details>
+
+    <button class="print-btn" onclick="expandAllAndPrint()">🖨️ Tlačiť / Exportovať do PDF</button>
+    <script>
+      function expandAllAndPrint() {
+        // Expand all <details> elements
+        document.querySelectorAll('details').forEach(d => d.open = true);
+        // Wait for the DOM to update, then print
+        setTimeout(() => window.print(), 100);
+      }
+    </script>
+  </div>
+  <footer>
+    <p class="licence-left" style="background: none; color: #222; text-align: center; padding: 1rem; font-size: 0.9rem; margin-top: 4rem;">
+      <a href="https://archdata.sk/standardy-test">Štandardy služieb architektov</a> © 2025 by Kornel Kobák is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
+      <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+    </p>
+  </footer>
+</body>
+</html>
