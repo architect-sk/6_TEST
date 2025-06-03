@@ -43,6 +43,28 @@
       padding: 2rem;
       background: #fff;
     }
+    /* Add green background for .obsah-box */
+    .obsah-box {
+      background: #33aa66;
+      border-radius: 8px;
+      border: 1px solid #33aa66;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      font-weight: normal;
+    }
+    .obsah-box a,
+    .obsah-box strong,
+    .obsah-box div,
+    .obsah-box span {
+      color: #fff !important;
+      font-weight: normal !important;
+    }
+    .obsah-box > a,
+    .obsah-box > strong {
+      font-weight: bold !important;
+      color: #fff !important;
+    }
     h3 { margin-top: 1.5rem; }
     ol.subchapters {
       padding-left: 2.5em;
@@ -146,7 +168,7 @@
       white-space: pre-wrap;
     }
     .print-btn {
-      display: block;
+      display: none;
       margin: 4rem auto 2rem;
       background: #33aa66;
       color: #fff;
@@ -159,7 +181,7 @@
     nav {
       background: #fff;
       padding: 1rem;
-      border-left: 5px solid #33aa66;
+      /* border-left: 5px solid #33aa66; */ /* Removed green line */
       margin-bottom: 2rem;
     }
     nav a {
@@ -216,8 +238,10 @@
   <a href="https://archdata.sk/standardy-test" class="home-link" style="display:block; margin:2rem 0 0 2rem;">
     <img src="archdata_logo.jpg" alt="archdata" />
   </a>
+  <div style="height:6rem"></div>
   <div class="content">
-    <nav>
+    <nav class="obsah-box">
+      <div style="font-size:1.7rem; font-weight:bold; margin-bottom:1rem;"><b>Štandardy služieb architektov</b></div>
       <strong>Obsah</strong>
       <a href="#uvod">1. Úvod</a>
       <div style="padding-left:1.5em">
