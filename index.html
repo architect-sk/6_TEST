@@ -103,8 +103,18 @@
         document.addEventListener("DOMContentLoaded", function() {
             if (PASSWORD_PROTECTION_ENABLED) {
                 if (!sessionStorage.getItem("archdata_access")) {
+                    // Password is "alfatest" but obfuscated as ASCII codes
+                    const pwAscii = [97,108,102,97,116,101,115,116]; // "alfatest"
+                    function checkPassword(pw) {
+                        if (!pw) return false;
+                        if (pw.length !== pwAscii.length) return false;
+                        for (let i = 0; i < pwAscii.length; ++i) {
+                            if (pw.charCodeAt(i) !== pwAscii[i]) return false;
+                        }
+                        return true;
+                    }
                     showPasswordModal(function(password, done) {
-                        if (password === "alfa") {
+                        if (checkPassword(password)) {
                             sessionStorage.setItem("archdata_access", "1");
                             // Remove modal
                             var modals = document.querySelectorAll('body > div[style*="z-index: 99999"]');
