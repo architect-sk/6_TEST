@@ -16,90 +16,108 @@
         }
     </style>
     <script>
-        // Set this to true to require password, false to suspend password prompt
-        var requirePassword = true;
+        // Set this to true to enable password, false to disable password
+        const PASSWORD_PROTECTION_ENABLED = true;
+
+        function showPasswordModal(callback) {
+            const modalBg = document.createElement('div');
+            modalBg.style.position = 'fixed';
+            modalBg.style.top = 0;
+            modalBg.style.left = 0;
+            modalBg.style.width = '100vw';
+            modalBg.style.height = '100vh';
+            modalBg.style.background = 'rgba(0,0,0,0.25)';
+            modalBg.style.display = 'flex';
+            modalBg.style.alignItems = 'center';
+            modalBg.style.justifyContent = 'center';
+            modalBg.style.zIndex = 99999;
+
+            const modal = document.createElement('div');
+            modal.style.background = '#fff';
+            modal.style.padding = '32px 28px 24px 28px';
+            modal.style.borderRadius = '10px';
+            modal.style.boxShadow = '0 2px 16px rgba(0,0,0,0.18)';
+            modal.style.maxWidth = '90vw';
+            modal.style.width = '350px';
+            modal.style.textAlign = 'center';
+
+            const label = document.createElement('div');
+            label.style.marginBottom = '18px';
+            label.style.fontSize = '1.1em';
+            label.style.textAlign = 'left';
+            label.innerHTML = 'Zadaj heslo pre prístup:<br><br><span style="font-size:0.95em;color:#444;">Táto webová stránka využíva funkcie služby webovej analýzy Google Analytics.</span>';
+
+            const input = document.createElement('input');
+            input.type = 'password';
+            input.style.width = '100%';
+            input.style.fontSize = '1.1em';
+            input.style.padding = '8px';
+            input.style.marginBottom = '16px';
+            input.style.borderRadius = '5px';
+            input.style.border = '1px solid #bbb';
+
+            const error = document.createElement('div');
+            error.style.color = 'red';
+            error.style.fontSize = '0.95em';
+            error.style.display = 'none';
+            error.style.marginBottom = '10px';
+            error.textContent = 'Nesprávne heslo. Prístup zamietnutý.';
+
+            const button = document.createElement('button');
+            button.textContent = 'Potvrdiť';
+            button.style.fontSize = '1em';
+            button.style.padding = '8px 22px';
+            button.style.borderRadius = '5px';
+            button.style.border = 'none';
+            button.style.background = '#33aa66';
+            button.style.color = '#fff';
+            button.style.cursor = 'pointer';
+
+            button.onclick = function() {
+                callback(input.value, function(success) {
+                    if (!success) {
+                        error.style.display = 'block';
+                        input.value = '';
+                        input.focus();
+                    }
+                });
+            };
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    button.click();
+                }
+            });
+
+            modal.appendChild(label);
+            modal.appendChild(input);
+            modal.appendChild(error);
+            modal.appendChild(button);
+            modalBg.appendChild(modal);
+
+            document.body.appendChild(modalBg);
+
+            input.focus();
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
-            if (requirePassword) {
-                // Only prompt for password if not already granted in this session
+            if (PASSWORD_PROTECTION_ENABLED) {
                 if (!sessionStorage.getItem("archdata_access")) {
-                    // Custom modal for password input with asterisks
-                    var modal = document.createElement('div');
-                    modal.style.position = 'fixed';
-                    modal.style.top = 0;
-                    modal.style.left = 0;
-                    modal.style.width = '100vw';
-                    modal.style.height = '100vh';
-                    modal.style.background = 'rgba(0,0,0,0.3)';
-                    modal.style.display = 'flex';
-                    modal.style.alignItems = 'center';
-                    modal.style.justifyContent = 'center';
-                    modal.style.zIndex = 9999;
-
-                    var box = document.createElement('div');
-                    box.style.background = '#fff';
-                    box.style.padding = '2em';
-                    box.style.borderRadius = '8px';
-                    box.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
-                    box.style.textAlign = 'center';
-
-                    var label = document.createElement('label');
-                    label.textContent = "Zadajte heslo pre vstup na stránku:";
-                    label.style.display = 'block';
-                    label.style.marginBottom = '1em';
-
-                    var note = document.createElement('div');
-                    note.textContent = "Táto webová stránka využíva funkcie služby Google Analytics.";
-                    note.style.fontSize = '0.95em';
-                    note.style.color = '#666';
-                    note.style.marginBottom = '1.5em';
-
-                    var input = document.createElement('input');
-                    input.type = 'password';
-                    input.autocomplete = 'off';
-                    input.style.fontSize = '1.2em';
-                    input.style.padding = '0.5em';
-                    input.style.width = '100%';
-                    input.style.marginBottom = '1em';
-
-                    var button = document.createElement('button');
-                    button.textContent = 'Vstúpiť';
-                    button.style.fontSize = '1em';
-                    button.style.padding = '0.5em 2em';
-
-                    var error = document.createElement('div');
-                    error.style.color = 'red';
-                    error.style.marginTop = '1em';
-
-                    button.onclick = function() {
-                        if (input.value === "alfa") {
+                    showPasswordModal(function(password, done) {
+                        if (password === "alfa") {
                             sessionStorage.setItem("archdata_access", "1");
-                            document.body.removeChild(modal);
+                            // Remove modal
+                            var modals = document.querySelectorAll('body > div[style*="z-index: 99999"]');
+                            modals.forEach(function(m) { m.remove(); });
+                            done(true);
                         } else {
-                            error.textContent = "Nesprávne heslo. Prístup zamietnutý.";
-                        }
-                    };
-
-                    input.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') {
-                            button.click();
+                            done(false);
                         }
                     });
-
-                    // type="password" already masks input as asterisks
-
-                    box.appendChild(label);
-                    box.appendChild(note);
-                    box.appendChild(input);
-                    box.appendChild(button);
-                    box.appendChild(error);
-                    modal.appendChild(box);
-                    document.body.appendChild(modal);
-                    input.focus();
                 }
             }
         });
     </script>
-</head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE4DFHFELV"></script>
 <script>
@@ -109,6 +127,7 @@
 
   gtag('config', 'G-VE4DFHFELV');
 </script>
+</head>
 <body>
     <a href="https://archdata.sk/standardy-test" class="home-link" style="display:block; margin:2rem 0 0 2rem;">
         <img src="archdata_logo.jpg" alt="archdata" />

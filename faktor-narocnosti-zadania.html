@@ -19,10 +19,25 @@
             justify-content: center;
             align-items: center;
             height: 60vh;
-            font-size: 2.2rem;
+            font-size: 3.0rem;
             color: #33aa66;
             font-weight: bold;
             letter-spacing: 0.1em;
+        }
+        .dots-anim::after {
+            content: '';
+            display: inline-block;
+            width: 2.5em;
+            text-align: left;
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%   { content: ''; }
+            20%  { content: '.'; }
+            40%  { content: '..'; }
+            60%  { content: '...'; }
+            80%  { content: '....'; }
+            100% { content: '.....'; }
         }
     </style>
 </head>
@@ -30,6 +45,21 @@
     <a href="index.html" class="home-link" style="display:block; margin:2rem 0 0 2rem;">
         <img src="archdata_logo.jpg" alt="archdata" />
     </a>
-    <div class="center-green-message">VO VÝVOJI...</div>
+    <div class="center-green-message">
+        VO VÝVOJI<span class="dots-anim"></span>
+    </div>
+    <script>
+        // Fallback for browsers that do not support CSS animation of ::after content
+        (function() {
+            var el = document.querySelector('.dots-anim');
+            if (!window.CSS || !CSS.supports('animation', 'name')) {
+                var dots = ['', '.', '..', '...', '....', '.....'];
+                var i = 0;
+                setInterval(function() {
+                    el.textContent = dots[i = (i + 1) % dots.length];
+                }, 300);
+            }
+        })();
+    </script>
 </body>
 </html>
